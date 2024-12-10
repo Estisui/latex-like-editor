@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { mockCreateWork, mockFetchWorks } from './mockApi';
 
 // Set up base API instance
 const api = axios.create({
@@ -18,9 +19,16 @@ export const register = (username: string, password: string) =>
   api.post('/register', { username, password });
 
 // Works
-export const fetchWorks = () => api.get('/api/works/');
-export const createWork = (title: string, description: string) =>
-  api.post('/api/works/', { title, description });
+// export const fetchWorks = () => api.get('/api/works/');
+// export const createWork = (title: string, description: string) =>
+//   api.post('/api/works/', { title, description });
+
+// Fetch Works (mock)
+export const fetchWorks = () => mockFetchWorks();
+
+// Create Work (mock)
+export const createWork = (title: string, description: string) => mockCreateWork(title, description);
+
 export const updateWork = (id: number, title: string, description: string) =>
   api.put(`/api/works/${id}/`, { title, description });
 export const deleteWork = (id: number) => api.delete(`/api/works/${id}/`);

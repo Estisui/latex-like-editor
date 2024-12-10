@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { fetchWorks } from '../api/api';
+import { fetchWorks } from '../api/api'; // Uses mock API
 import WorkCard from '../components/WorkCard';
 import AddWorkForm from '../components/AddWorkForm';
 
 const Works: React.FC = () => {
   const [works, setWorks] = useState([]);
+  console.log(works);
 
   const loadWorks = async () => {
     try {
-      const { data } = await fetchWorks();
-      setWorks(data);
+      const data = await fetchWorks();
+      setWorks(data); // Cast to array
+      console.log('setted');
     } catch (err) {
       console.error('Failed to fetch works', err);
     }
   };
 
   useEffect(() => {
-    loadWorks();
+    loadWorks(); // Load initial mock data
   }, []);
 
   return (
@@ -26,7 +28,7 @@ const Works: React.FC = () => {
         <AddWorkForm onWorkAdded={loadWorks} />
       </div>
       <div className="space-y-4">
-        {works.map((work: any) => (
+        {works.map((work) => (
           <WorkCard key={work.id} title={work.title} description={work.description} />
         ))}
       </div>
